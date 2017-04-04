@@ -53,24 +53,21 @@ class Replicator
     glass_in_reactor_core = @enterprise.transporter.energize(obj: glass_in_tummy, from: @tummy, to: @enterprise.reactor.core)
 
     desired_temperature = @recipe.temperature
-    maximum_adjustments_allowed = 50
+    maximum_adjustments_allowed = 60
     number_of_adjustments = 0
 
     while glass_in_reactor_core.temperature != desired_temperature &&
           number_of_adjustments < maximum_adjustments_allowed
-
       if glass_in_reactor_core.temperature > desired_temperature
         @enterprise.reactor.cool_items_in_core
       elsif glass_in_reactor_core.temperature < desired_temperature
         @enterprise.reactor.heat_items_in_core
       end
-
       number_of_adjustments += 1
 
     end
 
     @enterprise.transporter.energize(obj: glass_in_reactor_core, from: @enterprise.reactor.core, to: @tummy)
-
   end
 
   def transport_glass_to_replicator_plate
